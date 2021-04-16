@@ -1,4 +1,10 @@
 .header {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+}
+
+.signup,
+.login {
+  text-align: center;
 }

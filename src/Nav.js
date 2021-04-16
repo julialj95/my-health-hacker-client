@@ -7,30 +7,20 @@ class Nav extends React.Component {
     return (
       <nav className="nav">
         <ul className="navbar">
-          <li>
-            <Link className="navlink" to="/">
-              Home
-            </Link>
+          <li className="navlink">
+            <Link to="/">Home</Link>
           </li>
-          <li>
-            <Link className="navlink" to="/submit-log">
-              Submit Log
-            </Link>
+          <li className="navlink">
+            <Link to="/submit-log">Submit Log</Link>
           </li>
-          <li>
-            <Link className="navlink" to="/logs">
-              View Logs
-            </Link>
+          <li className="navlink">
+            <Link to="/logs">View Logs</Link>
           </li>
-          <li>
-            <Link className="navlink" to="signup">
-              Create Account
-            </Link>
+          <li className="navlink">
+            <Link to="signup">Create Account</Link>
           </li>
-          <li>
-            <Link className="navlink" to="login">
-              Log In
-            </Link>
+          <li className="navlink">
+            <Link to="login">Log In</Link>
           </li>
         </ul>
       </nav>

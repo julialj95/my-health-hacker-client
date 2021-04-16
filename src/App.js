@@ -1,13 +1,14 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Nav from "./Nav";
-import Footer from "./Footer";
+// import Footer from "./Footer";
 import Header from "./Header";
 import Login from "./Login";
 import Signup from "./Signup";
 import SubmitLog from "./SubmitLog";
 import HomePage from "./HomePage";
 import Logs from "./Logs";
+import "./App.css";
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
         <Route path="/submit-log" component={SubmitLog} />
         <Route path="/logs" component={Logs} />
       </Switch>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

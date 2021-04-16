@@ -1,0 +1,15 @@
+.new_log {
+  text-align: center;
+}
+.log_section {
+  display: flex;
+  flex-direction: row;
+}
+.mental,
+.sleep,
+.exercise,
+.other {
+  border: solid 1px black;
+  border-radius: 5px;
+  flex: 1;
+}
