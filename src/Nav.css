@@ -1,0 +1,12 @@
+.nav {
+  flex-grow: 2;
+}
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.navlink {
+  list-style: none;
+}
