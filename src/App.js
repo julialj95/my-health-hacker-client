@@ -12,7 +12,7 @@ import "./App.css";
 
 function App() {
   return (
-    <div>
+    <div className="wrapper">
       <div className="header">
         <Nav />
         <Header />
