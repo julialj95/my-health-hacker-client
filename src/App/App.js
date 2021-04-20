@@ -7,27 +7,46 @@ import Login from "../Login";
 import Signup from "../Signup";
 import SubmitLog from "../SubmitLog/SubmitLog";
 import HomePage from "../HomePage/HomePage";
-import Logs from "../Logs/Logs";
+import Logs from "../LogsPage/LogsPage";
 import "./App.css";
 
-function App() {
-  return (
-    <div className="wrapper">
-      <div className="header">
-        <Nav />
-        <Header />
-      </div>
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      loggedIn: false,
+    };
+  }
 
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/submit-log" component={SubmitLog} />
-        <Route path="/logs" component={Logs} />
-      </Switch>
-      {/* <Footer /> */}
-    </div>
-  );
+  changeLoginStatus = (param) => {
+    console.log("changeLoginStatus called");
+    this.setState({ loggedIn: param });
+  };
+
+  render() {
+    return (
+      <div className="wrapper">
+        <div className="header">
+          <Nav loggedIn={this.state.loggedIn} />
+          <Header />
+        </div>
+
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route
+            path="/login"
+            render={(props) => (
+              <Login {...props} handleLogin={this.changeLoginStatus} />
+            )}
+          />
+          <Route path="/signup" component={Signup} />
+          <Route path="/submit-log" component={SubmitLog} />
+          <Route path="/logs" component={Logs} />
+        </Switch>
+        {/* <Footer /> */}
+      </div>
+    );
+  }
 }
 
 export default App;
