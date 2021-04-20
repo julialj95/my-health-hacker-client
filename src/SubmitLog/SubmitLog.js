@@ -1,5 +1,7 @@
 import React from "react";
 import "./SubmitLog.css";
+import config from "../config";
+import TokenService from "../services/token-service";
 
 class Logs extends React.Component {
   constructor() {
@@ -26,7 +28,46 @@ class Logs extends React.Component {
 
   handleSubmitLog = (e) => {
     e.preventDefault();
+    const {
+      date,
+      mood,
+      stress,
+      sleep_hours,
+      sleep_quality,
+      exercise,
+      exercise_type,
+      water,
+      notes,
+    } = this.state;
+
+    fetch(`${config.API_BASE_URL}/logs`, {
+      method: "POST",
+      body: JSON.stringify({
+        date,
+        mood,
+        stress,
+        sleep_hours,
+        sleep_quality,
+        exercise,
+        exercise_type,
+        water,
+        notes,
+      }),
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + TokenService.getAuthToken(),
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          res.json().then((e) => Promise.reject(e));
+        }
+
+        res.json();
+      })
+      .catch((error) => console.error({ error }));
   };
+
   render() {
     return (
       <main className="new_log">
