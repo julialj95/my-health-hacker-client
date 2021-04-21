@@ -1,27 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import LogInputForm from "../LogInputForm";
 import config from "../config";
 import TokenService from "../services/token-service";
 
-class EditLog extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      log_date: "",
-      stress: "",
-      mood: "",
-      sleep_quality: "",
-      sleep_hours: "",
-      exercise_minutes: "",
-      exercise_type: "",
-      water: "",
-      notes: "",
-    };
-  }
-  componentDidMount() {
-    const { log_id } = this.props;
+function EditLog() {
+  const [formData, setFormData] = useState({
+    id: "",
+    log_date: "",
+    stress: "",
+    mood: "",
+    sleep_quality: "",
+    sleep_hours: "",
+    exercise_minutes: "",
+    exercise_type: "",
+    water: "",
+    notes: "",
+  });
 
-    fetch(config.API_BASE_URL + `/logs/${log_id}`, {
+  useEffect(() => {
+    const { id } = this.props;
+
+    fetch(config.API_BASE_URL + `/logs/${id}`, {
       method: "GET",
       headers: {
         type: "application/json",
@@ -35,7 +34,7 @@ class EditLog extends React.Component {
         return res.json();
       })
       .then((log) => {
-        this.setState({
+        setFormData({
           date: log.log_date,
           stress: log.stress,
           mood: log.mood,
@@ -46,15 +45,36 @@ class EditLog extends React.Component {
           water: log.water,
           notes: log.notes,
         });
-      });
-  }
-  render() {
-    return (
-      <>
-        <LogInputForm />
-      </>
-    );
-  }
+      })
+      .catch((error) => console.error({ error }));
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  return (
+    <>
+      <LogInputForm
+        handleChange={handleChange}
+        id={formData.id}
+        key={formData.id}
+        stress={formData.stress}
+        mood={formData.mood}
+        log_date={formData.log_date}
+        sleep_hours={formData.sleep_hours}
+        sleep_quality={formData.sleep_quality}
+        exercise_minutes={formData.exercise_minutes}
+        exercise_type={formData.exercise_type}
+        water={formData.water}
+        notes={formData.notes}
+      />
+    </>
+  );
 }
 
 export default EditLog;

@@ -1,7 +1,12 @@
 import React from "react";
 
 class LogInputForm extends React.Component {
+  static defaultProps = {
+    water: "",
+    exercise_minutes: "",
+  };
   render() {
+    console.log("this.props", this.props);
     return (
       <form onSubmit={this.props.handleSubmitLog}>
         <section>
@@ -10,7 +15,7 @@ class LogInputForm extends React.Component {
             type="date"
             id="log_date"
             name="log_date"
-            value={this.state.log_date}
+            value={this.props.log_date}
             onChange={this.props.handleChange}
           />
         </section>
@@ -27,7 +32,7 @@ class LogInputForm extends React.Component {
                 id="1"
                 name="mood"
                 value={1}
-                onClick={this.props.handleChange}
+                onChange={this.props.handleChange}
               />
               <label htmlFor="mood">1</label>
               <input
@@ -35,7 +40,7 @@ class LogInputForm extends React.Component {
                 id="2"
                 name="mood"
                 value={2}
-                onClick={this.props.handleChange}
+                onChange={this.props.handleChange}
               />
               <label htmlFor="mood">2</label>
               <input
@@ -43,7 +48,7 @@ class LogInputForm extends React.Component {
                 id="3"
                 name="mood"
                 value={3}
-                onClick={this.props.handleChange}
+                onChange={this.props.handleChange}
               />
               <label htmlFor="mood">3</label>
               <input
@@ -51,7 +56,7 @@ class LogInputForm extends React.Component {
                 id="4"
                 name="mood"
                 value={4}
-                onClick={this.props.handleChange}
+                onChange={this.props.handleChange}
               />
               <label htmlFor="mood">4</label>
               <input
@@ -59,7 +64,7 @@ class LogInputForm extends React.Component {
                 id="5"
                 name="mood"
                 value={5}
-                onClick={this.props.handleChange}
+                onChange={this.props.handleChange}
               />
               <label htmlFor="mood">5</label>
             </div>
@@ -71,7 +76,8 @@ class LogInputForm extends React.Component {
                 id="1"
                 name="stress"
                 value={1}
-                onClick={this.props.handleChange}
+                checked={this.props.stress === 1}
+                onChange={this.props.handleChange}
               />
               <label htmlFor="stress">1</label>
               <input
@@ -79,7 +85,8 @@ class LogInputForm extends React.Component {
                 id="2"
                 name="stress"
                 value={2}
-                onClick={this.props.handleChange}
+                checked={this.props.stress === 2}
+                onChange={this.props.handleChange}
               />
               <label htmlFor="stress">2</label>
               <input
@@ -87,7 +94,8 @@ class LogInputForm extends React.Component {
                 id="3"
                 name="stress"
                 value={3}
-                onClick={this.props.handleChange}
+                checked={this.props.stress === 3}
+                onChange={this.props.handleChange}
               />
               <label htmlFor="stress">3</label>
               <input
@@ -95,7 +103,8 @@ class LogInputForm extends React.Component {
                 id="4"
                 name="stress"
                 value={4}
-                onClick={this.props.handleChange}
+                checked={this.props.stress === 4}
+                onChange={this.props.handleChange}
               />
               <label htmlFor="stress">4</label>
               <input
@@ -103,7 +112,8 @@ class LogInputForm extends React.Component {
                 id="5"
                 name="stress"
                 value={5}
-                onClick={this.props.handleChange}
+                checked={this.props.stress === 5}
+                onChange={this.props.handleChange}
               />
               <label htmlFor="stress">5</label>
             </div>
@@ -116,7 +126,7 @@ class LogInputForm extends React.Component {
               type="text"
               name="sleep_hours"
               id="sleep_hours"
-              value={this.state.sleep_hours}
+              value={this.props.sleep_hours}
               onChange={this.props.handleChange}
             />
             <div>
@@ -126,7 +136,7 @@ class LogInputForm extends React.Component {
                 id="1"
                 name="sleep_quality"
                 value={1}
-                onClick={this.props.handleChange}
+                onChange={this.props.handleChange}
               />
               <label htmlFor="sleep_quality">1</label>
               <input
@@ -134,7 +144,7 @@ class LogInputForm extends React.Component {
                 id="2"
                 name="sleep_quality"
                 value={2}
-                onClick={this.props.handleChange}
+                onChange={this.props.handleChange}
               />
               <label htmlFor="sleep_quality">2</label>
               <input
@@ -142,7 +152,7 @@ class LogInputForm extends React.Component {
                 id="3"
                 name="sleep_quality"
                 value={3}
-                onClick={this.props.handleChange}
+                onChange={this.props.handleChange}
               />
               <label htmlFor="sleep_quality">3</label>
               <input
@@ -150,7 +160,7 @@ class LogInputForm extends React.Component {
                 id="4"
                 name="sleep_quality"
                 value={4}
-                onClick={this.props.handleChange}
+                onChange={this.props.handleChange}
               />
               <label htmlFor="sleep_quality">4</label>
               <input
@@ -158,7 +168,7 @@ class LogInputForm extends React.Component {
                 id="5"
                 name="sleep_quality"
                 value={5}
-                onClick={this.props.handleChange}
+                onChange={this.props.handleChange}
               />
               <label htmlFor="sleep_quality">5</label>
             </div>
@@ -166,13 +176,13 @@ class LogInputForm extends React.Component {
           <br />
           <section className="exercise">
             <h2>Physical</h2>
-            <label htmlFor="exercise">Minutes of exercise</label>
+            <label htmlFor="exercise_minutes">Minutes of exercise</label>
             <br />
             <input
-              type="text"
-              name="exercise"
-              id="exercise"
-              value={this.state.exercise}
+              type="number"
+              name="exercise_minutes"
+              id="exercise_minutes"
+              value={this.props.exercise_minutes || ""}
               onChange={this.props.handleChange}
             />
             <br />
@@ -183,7 +193,7 @@ class LogInputForm extends React.Component {
               type="text"
               name="exercise_type"
               id="exercise_type"
-              value={this.state.exercise_type}
+              value={this.props.exercise_type}
               onChange={this.props.handleChange}
             />
             <br />
@@ -195,7 +205,7 @@ class LogInputForm extends React.Component {
               type="text"
               name="water"
               id="water"
-              value={this.state.water}
+              value={this.props.water}
               onChange={this.props.handleChange}
             />
           </section>
@@ -212,7 +222,7 @@ class LogInputForm extends React.Component {
               rows="4"
               cols="50"
               placeholder="Anything else you would like to track? Note it here!"
-              value={this.state.notes}
+              value={this.props.notes}
               onChange={this.props.handleChange}
             />
           </section>

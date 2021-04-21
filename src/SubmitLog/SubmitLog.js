@@ -80,7 +80,7 @@ class Logs extends React.Component {
           handleSubmitLog={this.handleSubmitLog}
           log_date={this.state.log_date}
           sleep_hours={this.state.sleep_hours}
-          exercise={this.state.exercise_minutes}
+          exercise_minutes={this.state.exercise_minutes}
           exercise_type={this.state.exercise_type}
           notes={this.state.notes}
         />

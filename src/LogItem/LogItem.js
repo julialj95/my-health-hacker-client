@@ -1,13 +1,53 @@
 import React from "react";
 import "./LogItem.css";
+import EditLog from "../EditLog/EditLog";
+import config from "../config";
+import TokenService from "../services/token-service";
+import { withRouter } from "react-router-dom";
 
 class LogItem extends React.Component {
   constructor() {
     super();
     this.state = {
       displayFull: false,
+      displayEditLogForm: false,
+      error: "",
     };
   }
+  handleEditFormDisplay = () => {
+    this.setState({
+      displayEditLogForm: true,
+    });
+  };
+
+  handleDisplay = () => {
+    this.setState((prevState) => {
+      console.log(!prevState.displayFull);
+      return {
+        displayFull: !prevState.displayFull,
+      };
+    });
+  };
+
+  deleteLog = () => {
+    const { id } = this.props;
+
+    fetch(`${config.API_BASE_URL}/logs/${id}`, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + TokenService.getAuthToken(),
+      },
+    })
+      .then((res) => {
+        if (!res.ok) return res.json().then((e) => Promise.reject(e));
+      })
+      .then(() => {
+        this.props.history.push("/logs");
+      })
+      .catch((error) => this.setState({ error }));
+  };
+
   renderFullItem() {
     return (
       <section className="log_record long">
@@ -28,11 +68,9 @@ class LogItem extends React.Component {
           </div>
         </div>
         <p>{this.props.notes}</p>
-        <button onClick={this.editLog}>Edit</button>
-        <button>Delete</button>
-        <button onClick={this.setState({ displayFull: false })}>
-          Collapse Log
-        </button>
+        <button onClick={this.handleEditFormDisplay}>Edit</button>
+        <button onClick={this.deleteLog}>Delete</button>
+        <button onClick={this.handleDisplay}>Collapse Log</button>
       </section>
     );
   }
@@ -40,7 +78,7 @@ class LogItem extends React.Component {
     return (
       <section className="log_record short">
         <h2>{this.props.date}</h2>
-        <button onClick={this.setState({ displayFull: true })}>View Log</button>
+        <button onClick={this.handleDisplay}>View Log</button>
       </section>
     );
   }
@@ -50,8 +88,14 @@ class LogItem extends React.Component {
         {this.state.displayFull
           ? this.renderFullItem()
           : this.renderPartialItem()}
+        {this.state.displayEditLogForm ? (
+          <>
+            <h2>Edit Log</h2>
+            <EditLog id={this.props.id} />
+          </>
+        ) : null}
       </div>
     );
   }
 }
-export default LogItem;
+export default withRouter(LogItem);

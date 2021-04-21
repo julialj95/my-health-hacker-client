@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import Nav from "../Nav/Nav";
 // import Footer from "./Footer";
@@ -9,44 +9,31 @@ import SubmitLog from "../SubmitLog/SubmitLog";
 import HomePage from "../HomePage/HomePage";
 import Logs from "../LogsPage/LogsPage";
 import "./App.css";
+import TokenService from "../services/token-service";
 
-class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      loggedIn: false,
-    };
-  }
+function App() {
+  const [loggedIn, setLoggedIn] = useState(TokenService.hasAuthToken());
 
-  changeLoginStatus = (param) => {
-    console.log("changeLoginStatus called");
-    this.setState({ loggedIn: param });
-  };
-
-  render() {
-    return (
-      <div className="wrapper">
-        <div className="header">
-          <Nav loggedIn={this.state.loggedIn} />
-          <Header />
-        </div>
-
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route
-            path="/login"
-            render={(props) => (
-              <Login {...props} handleLogin={this.changeLoginStatus} />
-            )}
-          />
-          <Route path="/signup" component={Signup} />
-          <Route path="/submit-log" component={SubmitLog} />
-          <Route path="/logs" component={Logs} />
-        </Switch>
-        {/* <Footer /> */}
+  return (
+    <div className="wrapper">
+      <div className="header">
+        <Nav loggedIn={loggedIn} />
+        <Header />
       </div>
-    );
-  }
+
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route
+          path="/login"
+          render={(props) => <Login {...props} handleLogin={setLoggedIn} />}
+        />
+        <Route path="/signup" component={Signup} />
+        <Route path="/submit-log" component={SubmitLog} />
+        <Route path="/logs" component={Logs} />
+      </Switch>
+      {/* <Footer /> */}
+    </div>
+  );
 }
 
 export default App;
