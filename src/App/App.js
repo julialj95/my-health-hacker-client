@@ -14,10 +14,16 @@ import TokenService from "../services/token-service";
 function App() {
   const [loggedIn, setLoggedIn] = useState(TokenService.hasAuthToken());
 
+  const handleLogout = () => {
+    console.log("handle logout clicked");
+    TokenService.clearAuthToken();
+  };
+
+  console.log("has auth token", TokenService.hasAuthToken());
   return (
     <div className="wrapper">
       <div className="header">
-        <Nav loggedIn={loggedIn} />
+        <Nav loggedIn={loggedIn} handleLogout={handleLogout} />
         <Header />
       </div>
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+// import TokenService from "../services/token-service";
 import "./Nav.css";
 
 class Nav extends React.Component {
@@ -13,7 +14,9 @@ class Nav extends React.Component {
           <Link to="/logs">View Logs</Link>
         </li>
         <li>
-          <button className="logout_btn">Log Out</button>
+          <button className="logout_btn" onClick={this.props.handleLogout}>
+            Log Out
+          </button>
         </li>
       </>
     );
@@ -31,8 +34,8 @@ class Nav extends React.Component {
       </>
     );
   }
-  handleLogoutClick = () => {};
   render() {
+    console.log("this.props.loggedIn", this.props.loggedIn);
     return (
       <nav className="nav">
         <ul className="navbar">
