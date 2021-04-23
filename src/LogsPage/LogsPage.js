@@ -24,7 +24,7 @@ function Logs() {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
+        console.log("data", data);
 
         setLogs(data);
         setIsFetching(false);
@@ -36,7 +36,7 @@ function Logs() {
   }, []);
 
   const displayLogs = logs.map((logItem) => {
-    console.log(logItem);
+    console.log("logItem", logItem);
 
     return (
       <LogItem

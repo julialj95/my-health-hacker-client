@@ -71,7 +71,7 @@ function Logs() {
       })
       .catch((error) => setError(error));
   };
-
+  console.log("logData.log_date", logData.log_date);
   return (
     <main className="new_log">
       <h2>Submit Log:</h2>

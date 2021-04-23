@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-// import TokenService from "../services/token-service";
 import "./Nav.css";
+import UserContext from "../UserContext";
 
-class Nav extends React.Component {
-  renderLoggedIn() {
+function Nav(props) {
+  const context = useContext(UserContext);
+  console.log("context", context);
+  const LoggedIn = () => {
     return (
       <>
         <li className="navlink">
@@ -14,15 +16,15 @@ class Nav extends React.Component {
           <Link to="/logs">View Logs</Link>
         </li>
         <li>
-          <button className="logout_btn" onClick={this.props.handleLogout}>
-            Log Out
+          <button className="logout_btn" onClick={props.handleLogout}>
+            Log Out {context.username}
           </button>
         </li>
       </>
     );
-  }
+  };
 
-  renderLoggedOut() {
+  const LoggedOut = () => {
     return (
       <>
         <li className="navlink">
@@ -33,20 +35,18 @@ class Nav extends React.Component {
         </li>
       </>
     );
-  }
-  render() {
-    console.log("this.props.loggedIn", this.props.loggedIn);
-    return (
-      <nav className="nav">
-        <ul className="navbar">
-          <li className="navlink">
-            <Link to="/">Home</Link>
-          </li>
-          {this.props.loggedIn ? this.renderLoggedIn() : this.renderLoggedOut()}
-        </ul>
-      </nav>
-    );
-  }
+  };
+  console.log("props.loggedIn", props.loggedIn);
+  return (
+    <nav className="nav">
+      <ul className="navbar">
+        <li className="navlink">
+          <Link to="/">Home</Link>
+        </li>
+        {props.loggedIn ? LoggedIn() : LoggedOut()}
+      </ul>
+    </nav>
+  );
 }
 
 export default Nav;

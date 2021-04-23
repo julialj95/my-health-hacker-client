@@ -3,7 +3,7 @@ import LogInputForm from "../LogInputForm";
 import config from "../config";
 import TokenService from "../services/token-service";
 
-function EditLog() {
+function EditLog(props) {
   const [formData, setFormData] = useState({
     id: "",
     log_date: "",
@@ -18,8 +18,8 @@ function EditLog() {
   });
 
   useEffect(() => {
-    const { id } = this.props;
-
+    const id = props.id;
+    console.log(config.API_BASE_URL + `/logs/${id}`);
     fetch(config.API_BASE_URL + `/logs/${id}`, {
       method: "GET",
       headers: {
@@ -34,8 +34,10 @@ function EditLog() {
         return res.json();
       })
       .then((log) => {
+        console.log("log", log);
         setFormData({
-          date: log.log_date,
+          id: log.id,
+          log_date: log.log_date,
           stress: log.stress,
           mood: log.mood,
           sleep_quality: log.sleep_quality,
@@ -47,7 +49,7 @@ function EditLog() {
         });
       })
       .catch((error) => console.error({ error }));
-  }, []);
+  }, [props.id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,7 +58,7 @@ function EditLog() {
       [name]: value,
     });
   };
-
+  console.log("formdata", formData);
   return (
     <>
       <LogInputForm

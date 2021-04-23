@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import TokenService from "./services/token-service";
 import AuthService from "./services/auth-service";
+import userContext from "./UserContext";
 
-function Login() {
+function Login(props) {
+  const context = useContext(userContext);
+  const history = useHistory();
   const [userData, setUserData] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
 
@@ -16,7 +20,7 @@ function Login() {
 
   const handleJwtAuthSubmit = (e) => {
     e.preventDefault();
-    setError(null);
+    setError("");
     const { username, password } = userData;
 
     AuthService.postLogin({
@@ -26,10 +30,12 @@ function Login() {
       .then((res) => {
         setUserData({ username: "", password: "" });
         TokenService.saveAuthToken(res.authToken);
-        this.props.handleLogin();
+        history.push("/submit-log");
+        props.handleLogin();
+        context.setUsername(username);
       })
-      .catch((res) => {
-        setError(res.error);
+      .catch((error) => {
+        setError(error.error);
       });
   };
 

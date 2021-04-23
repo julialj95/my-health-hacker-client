@@ -75,7 +75,7 @@ function Signup() {
           Create Account
         </button>
       </form>
-      {error ? <h2>{error.message}</h2> : null}
+      {error ? <h2>{error.error}</h2> : null}
     </div>
   );
 }
