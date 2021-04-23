@@ -16,9 +16,9 @@ function Login() {
 
   const handleJwtAuthSubmit = (e) => {
     e.preventDefault();
-    this.setState({ error: null });
+    setError(null);
     const { username, password } = userData;
-    console.log(username, password);
+
     AuthService.postLogin({
       username: username,
       password: password,
@@ -26,8 +26,7 @@ function Login() {
       .then((res) => {
         setUserData({ username: "", password: "" });
         TokenService.saveAuthToken(res.authToken);
-        console.log(res.authToken);
-        this.props.handleLogin(true);
+        this.props.handleLogin();
       })
       .catch((res) => {
         setError(res.error);

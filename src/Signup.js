@@ -1,81 +1,83 @@
-import React from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import config from "./config";
 import TokenService from "./services/token-service";
 
-class Signup extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      username: "",
-      password: "",
-    };
-  }
+function Signup() {
+  const [userData, setUserData] = useState({ username: "", password: "" });
+  const [error, setError] = useState("");
+  const history = useHistory();
 
-  handleChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    this.setState({
+    setUserData({
+      ...userData,
       [name]: value,
     });
+    console.log(userData);
   };
 
-  handleSignup = (e) => {
+  const handleSignup = (e) => {
     e.preventDefault();
-    const { username, password } = this.state;
+    const { username, password } = userData;
+
     fetch(`${config.API_BASE_URL}/users`, {
       method: "POST",
-      body: JSON.stringify({
-        username,
-        password,
-      }),
       headers: {
         "content-type": "application/json",
         Authorization: "Bearer " + TokenService.getAuthToken(),
       },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
     })
       .then((res) => {
+        console.log(res);
         if (!res.ok) {
           return res.json().then((e) => Promise.reject(e));
         }
-        return res.json();
       })
-
-      .then(() => this.props.history.push("/login"))
-      .catch((error) => this.setState({ error }));
+      .then(() => history.push("/login"))
+      .catch((error) => setError(error));
   };
-  render() {
-    return (
-      <div className="signup">
-        {" "}
-        <h1>SIGN UP</h1>
-        <h2 className="signup_instructions">
-          Create an account to start tracking your health habits!
-        </h2>
-        <form className="signup_form" onSubmit={this.handleSignup}>
-          <input
-            className="signup_field"
-            type="text"
-            name="username"
-            placeholder="Create a username..."
-            onChange={this.handleChange}
-          />
 
-          <br />
+  console.log(error);
 
-          <input
-            className="signup_field"
-            type="text"
-            name="password"
-            placeholder="Create a password..."
-            onChange={this.handleChange}
-          />
+  return (
+    <div className="signup">
+      {" "}
+      <h1>SIGN UP</h1>
+      <h2 className="signup_instructions">
+        Create an account to start tracking your health habits!
+      </h2>
+      <form className="signup_form" onSubmit={(e) => handleSignup(e)}>
+        <input
+          className="signup_field"
+          type="text"
+          name="username"
+          placeholder="Create a username..."
+          onChange={(e) => handleChange(e)}
+        />
 
-          <br />
-          <button className="signup_btn" type="submit">
-            Create Account
-          </button>
-        </form>
-      </div>
-    );
-  }
+        <br />
+
+        <input
+          className="signup_field"
+          type="text"
+          name="password"
+          placeholder="Create a password..."
+          onChange={(e) => handleChange(e)}
+        />
+
+        <br />
+        <button className="signup_btn" type="submit">
+          Create Account
+        </button>
+      </form>
+      {error ? <h2>{error.message}</h2> : null}
+    </div>
+  );
 }
+
 export default Signup;

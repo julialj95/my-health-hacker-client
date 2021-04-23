@@ -1,34 +1,35 @@
-import React from "react";
-import { withRouter } from "react-router-dom";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import "./SubmitLog.css";
 import config from "../config";
 import TokenService from "../services/token-service";
 import LogInputForm from "../LogInputForm";
 
-class Logs extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      log_date: "",
-      mood: "",
-      stress: "",
-      sleep_hours: "",
-      sleep_quality: "",
-      exercise_minutes: "",
-      exercise_type: "",
-      water: "",
-      notes: "",
-    };
-  }
+function Logs() {
+  const [logData, setLogData] = useState({
+    log_date: "",
+    mood: "",
+    stress: "",
+    sleep_hours: "",
+    sleep_quality: "",
+    exercise_minutes: "",
+    exercise_type: "",
+    water: "",
+    notes: "",
+  });
 
-  handleChange = (e) => {
+  const [error, setError] = useState("");
+  const history = useHistory();
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    this.setState({
+    setLogData({
+      ...logData,
       [name]: value,
     });
   };
 
-  handleSubmitLog = (e) => {
+  const handleSubmitLog = (e) => {
     e.preventDefault();
     const {
       log_date,
@@ -40,7 +41,7 @@ class Logs extends React.Component {
       exercise_type,
       water,
       notes,
-    } = this.state;
+    } = logData;
 
     fetch(`${config.API_BASE_URL}/logs`, {
       method: "POST",
@@ -66,26 +67,30 @@ class Logs extends React.Component {
         }
 
         res.json();
-        this.props.history.push("/logs");
+        history.push("/logs");
       })
-      .catch((error) => console.error({ error }));
+      .catch((error) => setError(error));
   };
 
-  render() {
-    return (
-      <main className="new_log">
-        <h2>Submit Log:</h2>
-        <LogInputForm
-          handleChange={this.handleChange}
-          handleSubmitLog={this.handleSubmitLog}
-          log_date={this.state.log_date}
-          sleep_hours={this.state.sleep_hours}
-          exercise_minutes={this.state.exercise_minutes}
-          exercise_type={this.state.exercise_type}
-          notes={this.state.notes}
-        />
-      </main>
-    );
-  }
+  return (
+    <main className="new_log">
+      <h2>Submit Log:</h2>
+      <LogInputForm
+        handleChange={handleChange}
+        handleSubmitLog={handleSubmitLog}
+        log_date={logData.log_date}
+        mood={logData.mood}
+        stress={logData.stress}
+        sleep_hours={logData.sleep_hours}
+        sleep_quality={logData.sleep_quality}
+        exercise_minutes={logData.exercise_minutes}
+        exercise_type={logData.exercise_type}
+        water={logData.water}
+        notes={logData.notes}
+      />
+      {error ? <h2>{error.message}</h2> : null}
+    </main>
+  );
 }
-export default withRouter(Logs);
+
+export default Logs;

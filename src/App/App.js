@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import Nav from "../Nav/Nav";
-// import Footer from "./Footer";
+import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import Login from "../Login";
 import Signup from "../Signup";
@@ -37,7 +37,7 @@ function App() {
         <Route path="/submit-log" component={SubmitLog} />
         <Route path="/logs" component={Logs} />
       </Switch>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
