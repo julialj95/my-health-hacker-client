@@ -3,13 +3,12 @@ import "./LogItem.css";
 import EditLog from "../EditLog/EditLog";
 import config from "../config";
 import TokenService from "../services/token-service";
-import { useHistory } from "react-router-dom";
+import moment from "moment";
 
 function LogItem(props) {
   const [displayFull, setDisplayFull] = useState(false);
   const [displayEditLogForm, setDisplayEditLogForm] = useState(false);
   const [error, setError] = useState("");
-  const history = useHistory();
 
   const deleteLog = () => {
     console.log("deleteLogCalled");
@@ -26,7 +25,7 @@ function LogItem(props) {
         if (!res.ok) return res.json().then((e) => Promise.reject(e));
       })
       .then(() => {
-        history.push("/logs");
+        props.removeLog(id);
       })
       .catch((error) => setError(error));
   };
@@ -34,7 +33,8 @@ function LogItem(props) {
   const renderFullItem = () => {
     return (
       <section className="log_record long">
-        <h2 className="title_row">{props.date}</h2>
+        <h2 className="title_row">{moment(props.date).format("YYYY-MM-DD")}</h2>
+        Test
         <div className="top_section">
           <div className="log_section">
             <p>Stress Level: {props.stress}/5</p>
@@ -60,7 +60,7 @@ function LogItem(props) {
   const renderPartialItem = () => {
     return (
       <section className="log_record short">
-        <h2>{props.date}</h2>
+        <h2>{moment(props.date).format("YYYY-MM-DD")}</h2>
         <button onClick={() => setDisplayFull(true)}>View Log</button>
       </section>
     );

@@ -31,7 +31,7 @@ function Login(props) {
         setUserData({ username: "", password: "" });
         TokenService.saveAuthToken(res.authToken);
         history.push("/submit-log");
-        props.handleLogin();
+        props.handleLogin(TokenService.hasAuthToken());
         context.setUsername(username);
       })
       .catch((error) => {

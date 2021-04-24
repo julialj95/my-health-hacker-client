@@ -6,17 +6,31 @@ function LogInputForm(props) {
   //   exercise_minutes: "",
   // };
 
-  console.log("props.id", props.id);
+  console.log("props", props);
+  const {
+    log_date,
+    mood,
+    stress,
+    sleep_hours,
+    sleep_quality,
+    exercise_type,
+    exercise_minutes,
+    water,
+    notes,
+    handleChange,
+    handleSubmitLog,
+  } = props;
+
   return (
-    <form onSubmit={props.handleSubmitLog}>
+    <form onSubmit={handleSubmitLog}>
       <section>
         <label htmlFor="date">Current Date</label>
         <input
           type="date"
           id="log_date"
           name="log_date"
-          value={props.log_date}
-          onChange={props.handleChange}
+          value={log_date}
+          onChange={handleChange}
         />
       </section>
       <br />
@@ -32,7 +46,8 @@ function LogInputForm(props) {
               id="1"
               name="mood"
               value={1}
-              onChange={props.handleChange}
+              checked={mood === 1}
+              onChange={handleChange}
             />
             <label htmlFor="mood">1</label>
             <input
@@ -40,7 +55,8 @@ function LogInputForm(props) {
               id="2"
               name="mood"
               value={2}
-              onChange={props.handleChange}
+              checked={mood === 2}
+              onChange={handleChange}
             />
             <label htmlFor="mood">2</label>
             <input
@@ -48,7 +64,8 @@ function LogInputForm(props) {
               id="3"
               name="mood"
               value={3}
-              onChange={props.handleChange}
+              checked={mood === 3}
+              onChange={handleChange}
             />
             <label htmlFor="mood">3</label>
             <input
@@ -56,7 +73,8 @@ function LogInputForm(props) {
               id="4"
               name="mood"
               value={4}
-              onChange={props.handleChange}
+              checked={mood === 4}
+              onChange={handleChange}
             />
             <label htmlFor="mood">4</label>
             <input
@@ -64,7 +82,8 @@ function LogInputForm(props) {
               id="5"
               name="mood"
               value={5}
-              onChange={props.handleChange}
+              checked={mood === 5}
+              onChange={handleChange}
             />
             <label htmlFor="mood">5</label>
           </div>
@@ -76,8 +95,8 @@ function LogInputForm(props) {
               id="1"
               name="stress"
               value={1}
-              // checked={props.stress === 1}
-              onChange={props.handleChange}
+              checked={stress === 1}
+              onChange={handleChange}
             />
             <label htmlFor="stress">1</label>
             <input
@@ -85,8 +104,8 @@ function LogInputForm(props) {
               id="2"
               name="stress"
               value={2}
-              // checked={props.stress === 2}
-              onChange={props.handleChange}
+              checked={stress === 2}
+              onChange={handleChange}
             />
             <label htmlFor="stress">2</label>
             <input
@@ -94,8 +113,8 @@ function LogInputForm(props) {
               id="3"
               name="stress"
               value={3}
-              // checked={props.stress === 3}
-              onChange={props.handleChange}
+              checked={stress === 3}
+              onChange={handleChange}
             />
             <label htmlFor="stress">3</label>
             <input
@@ -103,8 +122,8 @@ function LogInputForm(props) {
               id="4"
               name="stress"
               value={4}
-              // checked={props.stress === 4}
-              onChange={props.handleChange}
+              checked={stress === 4}
+              onChange={handleChange}
             />
             <label htmlFor="stress">4</label>
             <input
@@ -112,8 +131,8 @@ function LogInputForm(props) {
               id="5"
               name="stress"
               value={5}
-              // checked={props.stress === 5}
-              onChange={props.handleChange}
+              checked={stress === 5}
+              onChange={handleChange}
             />
             <label htmlFor="stress">5</label>
           </div>
@@ -126,8 +145,8 @@ function LogInputForm(props) {
             type="number"
             name="sleep_hours"
             id="sleep_hours"
-            value={props.sleep_hours}
-            onChange={props.handleChange}
+            value={sleep_hours}
+            onChange={handleChange}
           />
           <div>
             <h3>Sleep quality</h3>
@@ -136,7 +155,8 @@ function LogInputForm(props) {
               id="1"
               name="sleep_quality"
               value={1}
-              onChange={props.handleChange}
+              checked={sleep_quality === 1}
+              onChange={handleChange}
             />
             <label htmlFor="sleep_quality">1</label>
             <input
@@ -144,7 +164,8 @@ function LogInputForm(props) {
               id="2"
               name="sleep_quality"
               value={2}
-              onChange={props.handleChange}
+              checked={sleep_quality === 2}
+              onChange={handleChange}
             />
             <label htmlFor="sleep_quality">2</label>
             <input
@@ -152,7 +173,8 @@ function LogInputForm(props) {
               id="3"
               name="sleep_quality"
               value={3}
-              onChange={props.handleChange}
+              checked={sleep_quality === 3}
+              onChange={handleChange}
             />
             <label htmlFor="sleep_quality">3</label>
             <input
@@ -160,7 +182,8 @@ function LogInputForm(props) {
               id="4"
               name="sleep_quality"
               value={4}
-              onChange={props.handleChange}
+              checked={sleep_quality === 4}
+              onChange={handleChange}
             />
             <label htmlFor="sleep_quality">4</label>
             <input
@@ -168,7 +191,8 @@ function LogInputForm(props) {
               id="5"
               name="sleep_quality"
               value={5}
-              onChange={props.handleChange}
+              checked={sleep_quality === 5}
+              onChange={handleChange}
             />
             <label htmlFor="sleep_quality">5</label>
           </div>
@@ -182,8 +206,8 @@ function LogInputForm(props) {
             type="number"
             name="exercise_minutes"
             id="exercise_minutes"
-            value={props.exercise_minutes || ""}
-            onChange={props.handleChange}
+            value={exercise_minutes}
+            onChange={handleChange}
           />
           <br />
           <br />
@@ -193,8 +217,8 @@ function LogInputForm(props) {
             type="text"
             name="exercise_type"
             id="exercise_type"
-            value={props.exercise_type}
-            onChange={props.handleChange}
+            value={exercise_type}
+            onChange={handleChange}
           />
           <br />
           <br />
@@ -205,8 +229,8 @@ function LogInputForm(props) {
             type="number"
             name="water"
             id="water"
-            value={props.water || ""}
-            onChange={props.handleChange}
+            value={water}
+            onChange={handleChange}
           />
         </section>
       </div>
@@ -222,8 +246,8 @@ function LogInputForm(props) {
             rows="4"
             cols="50"
             placeholder="Anything else you would like to track? Note it here!"
-            value={props.notes}
-            onChange={props.handleChange}
+            value={notes}
+            onChange={handleChange}
           />
         </section>
       </div>

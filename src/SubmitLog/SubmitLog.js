@@ -5,7 +5,7 @@ import config from "../config";
 import TokenService from "../services/token-service";
 import LogInputForm from "../LogInputForm";
 
-function Logs() {
+function Logs(props) {
   const [logData, setLogData] = useState({
     log_date: "",
     mood: "",
@@ -17,8 +17,8 @@ function Logs() {
     water: "",
     notes: "",
   });
-
-  const [error, setError] = useState("");
+  const [validationError, setValidationError] = useState("");
+  const [fetchError, setFetchError] = useState("");
   const history = useHistory();
 
   const handleChange = (e) => {
@@ -29,8 +29,11 @@ function Logs() {
     });
   };
 
-  const handleSubmitLog = (e) => {
+  const submitLog = (e) => {
     e.preventDefault();
+    if (logData.log_date === "") {
+      return setValidationError("Please select a date");
+    }
     const {
       log_date,
       mood,
@@ -67,9 +70,10 @@ function Logs() {
         }
 
         res.json();
+
         history.push("/logs");
       })
-      .catch((error) => setError(error));
+      .catch((error) => setFetchError(error));
   };
   console.log("logData.log_date", logData.log_date);
   return (
@@ -77,7 +81,7 @@ function Logs() {
       <h2>Submit Log:</h2>
       <LogInputForm
         handleChange={handleChange}
-        handleSubmitLog={handleSubmitLog}
+        handleSubmitLog={submitLog}
         log_date={logData.log_date}
         mood={logData.mood}
         stress={logData.stress}
@@ -88,7 +92,8 @@ function Logs() {
         water={logData.water}
         notes={logData.notes}
       />
-      {error ? <h2>{error.message}</h2> : null}
+      {fetchError ? <h2>{fetchError.message}</h2> : null}
+      {validationError ? <h2>{validationError}</h2> : null}
     </main>
   );
 }

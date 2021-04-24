@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Switch, Route } from "react-router-dom";
 import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
@@ -13,13 +14,22 @@ import TokenService from "../services/token-service";
 import UserContext from "../UserContext";
 
 function App() {
+  const history = useHistory();
   const [loggedIn, setLoggedIn] = useState(TokenService.hasAuthToken());
   const [username, setUsername] = useState("");
+  const [logs, setLogs] = useState([]);
 
   const handleLogout = () => {
-    console.log("handle logout clicked");
     TokenService.clearAuthToken();
     setLoggedIn(TokenService.hasAuthToken());
+    setLogs([]);
+    setUsername("");
+    history.push("/");
+  };
+
+  const removeLog = (id) => {
+    const currentLogs = logs.filter((logItem) => logItem.id !== id);
+    setLogs(currentLogs);
   };
 
   const userInfo = {
@@ -43,7 +53,17 @@ function App() {
           />
           <Route path="/signup" component={Signup} />
           <Route path="/submit-log" component={SubmitLog} />
-          <Route path="/logs" component={Logs} />
+          <Route
+            path="/logs"
+            render={(props) => (
+              <Logs
+                {...props}
+                logs={logs}
+                setLogs={setLogs}
+                removeLog={removeLog}
+              />
+            )}
+          />
         </Switch>
         <Footer />
       </UserContext.Provider>
