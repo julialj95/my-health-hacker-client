@@ -43,7 +43,8 @@ function Login(props) {
     <div className="login">
       <h1>LOG IN</h1>
       <h2 className="demo_access">
-        *To test out MyHealthHacker with a demo account, log in with:
+        *To test out MyHealthHacker with a demo account, log in with the
+        following credentials:
         <br />
         Username: demouser
         <br />
