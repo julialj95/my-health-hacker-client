@@ -14,8 +14,8 @@ function Nav(props) {
         <li className="navlink">
           <Link to="/logs">View Logs</Link>
         </li>
-        <li>
-          <button className="logout_btn" onClick={props.handleLogout}>
+        <li className="logout_btn">
+          <button onClick={props.handleLogout}>
             Log Out {context.username}
           </button>
         </li>

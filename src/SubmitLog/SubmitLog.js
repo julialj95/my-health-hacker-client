@@ -17,6 +17,7 @@ function Logs(props) {
     exercise_type: "",
     water: "",
     notes: "",
+    parent: "submitLog",
   });
   const [validationError, setValidationError] = useState("");
   const [fetchError, setFetchError] = useState("");
@@ -28,9 +29,13 @@ function Logs(props) {
       name === "stress" ||
       name === "mood" ||
       name === "sleep_quality" ||
-      name === "sleep_hours"
+      name === "exercise_minutes" ||
+      name === "water"
     ) {
       value = parseInt(value);
+    }
+    if (name === "sleep_hours") {
+      value = Number(value);
     }
     setLogData({
       ...logData,
@@ -127,6 +132,7 @@ function Logs(props) {
         exercise_type={logData.exercise_type}
         water={logData.water}
         notes={logData.notes}
+        parent={logData.parent}
       />
       {fetchError ? <h2>{fetchError.message}</h2> : null}
       {validationError ? <h2>{validationError}</h2> : null}

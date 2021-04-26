@@ -49,7 +49,6 @@ function EditLog(props) {
           water: log.water,
           notes: log.notes,
         });
-        // setDisplayEditLogForm(false);
       })
       .catch((error) => setError(error));
   }, [id]);

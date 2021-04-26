@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./HomePage.css";
 
 function HomePage() {
@@ -23,8 +24,10 @@ function HomePage() {
 
         <h2>How To Use MyHealthHacker</h2>
         <p>
-          Create an account and get ready to submit your first log. You can log
-          in and check your logs any time!
+          <Link to="/signup">Create an account</Link> or{" "}
+          <Link to="/login">login</Link> with a demo account to submit your
+          first log. You can log in to check, submit and edit your logs any
+          time!
         </p>
       </section>
     </main>

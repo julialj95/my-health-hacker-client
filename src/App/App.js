@@ -67,8 +67,8 @@ function App() {
             )}
           />
         </Switch>
-        <Footer />
       </UserContext.Provider>
+      <Footer />
     </div>
   );
 }
