@@ -1,25 +1,23 @@
 import React from "react";
+import moment from "moment";
 
 function LogInputForm(props) {
-  // static defaultProps = {
-  //   water: "",
-  //   exercise_minutes: "",
-  // };
-
-  console.log("props", props);
   const {
     log_date,
-    mood,
-    stress,
+    // mood,
+    // stress,
     sleep_hours,
-    sleep_quality,
+    // sleep_quality,
     exercise_type,
     exercise_minutes,
     water,
     notes,
     handleChange,
     handleSubmitLog,
+    handleReset,
   } = props;
+  const today = new Date();
+  const maxDate = moment(today).format("YYYY-MM-DD");
 
   return (
     <form onSubmit={handleSubmitLog}>
@@ -30,6 +28,7 @@ function LogInputForm(props) {
           id="log_date"
           name="log_date"
           value={log_date}
+          max={maxDate}
           onChange={handleChange}
         />
       </section>
@@ -46,7 +45,7 @@ function LogInputForm(props) {
               id="1"
               name="mood"
               value={1}
-              checked={mood === 1}
+              // checked={props.mood !== "" ? mood === 1 : undefined}
               onChange={handleChange}
             />
             <label htmlFor="mood">1</label>
@@ -55,7 +54,7 @@ function LogInputForm(props) {
               id="2"
               name="mood"
               value={2}
-              checked={mood === 2}
+              // checked={props.mood !== "" ? mood === 2 : undefined}
               onChange={handleChange}
             />
             <label htmlFor="mood">2</label>
@@ -64,7 +63,7 @@ function LogInputForm(props) {
               id="3"
               name="mood"
               value={3}
-              checked={mood === 3}
+              // checked={props.mood !== "" ? mood === 3 : undefined}
               onChange={handleChange}
             />
             <label htmlFor="mood">3</label>
@@ -73,7 +72,7 @@ function LogInputForm(props) {
               id="4"
               name="mood"
               value={4}
-              checked={mood === 4}
+              // checked={props.mood !== "" ? mood === 4 : undefined}
               onChange={handleChange}
             />
             <label htmlFor="mood">4</label>
@@ -82,7 +81,7 @@ function LogInputForm(props) {
               id="5"
               name="mood"
               value={5}
-              checked={mood === 5}
+              // checked={props.mood !== "" ? mood === 5 : undefined}
               onChange={handleChange}
             />
             <label htmlFor="mood">5</label>
@@ -95,7 +94,7 @@ function LogInputForm(props) {
               id="1"
               name="stress"
               value={1}
-              checked={stress === 1}
+              // checked={stress === 1}
               onChange={handleChange}
             />
             <label htmlFor="stress">1</label>
@@ -104,7 +103,7 @@ function LogInputForm(props) {
               id="2"
               name="stress"
               value={2}
-              checked={stress === 2}
+              // checked={stress === 2}
               onChange={handleChange}
             />
             <label htmlFor="stress">2</label>
@@ -113,7 +112,7 @@ function LogInputForm(props) {
               id="3"
               name="stress"
               value={3}
-              checked={stress === 3}
+              // checked={stress === 3}
               onChange={handleChange}
             />
             <label htmlFor="stress">3</label>
@@ -122,7 +121,7 @@ function LogInputForm(props) {
               id="4"
               name="stress"
               value={4}
-              checked={stress === 4}
+              // checked={stress === 4}
               onChange={handleChange}
             />
             <label htmlFor="stress">4</label>
@@ -131,7 +130,7 @@ function LogInputForm(props) {
               id="5"
               name="stress"
               value={5}
-              checked={stress === 5}
+              // checked={stress === 5}
               onChange={handleChange}
             />
             <label htmlFor="stress">5</label>
@@ -155,7 +154,7 @@ function LogInputForm(props) {
               id="1"
               name="sleep_quality"
               value={1}
-              checked={sleep_quality === 1}
+              // checked={sleep_quality === 1}
               onChange={handleChange}
             />
             <label htmlFor="sleep_quality">1</label>
@@ -164,7 +163,7 @@ function LogInputForm(props) {
               id="2"
               name="sleep_quality"
               value={2}
-              checked={sleep_quality === 2}
+              // checked={sleep_quality === 2}
               onChange={handleChange}
             />
             <label htmlFor="sleep_quality">2</label>
@@ -173,7 +172,7 @@ function LogInputForm(props) {
               id="3"
               name="sleep_quality"
               value={3}
-              checked={sleep_quality === 3}
+              // checked={sleep_quality === 3}
               onChange={handleChange}
             />
             <label htmlFor="sleep_quality">3</label>
@@ -182,7 +181,7 @@ function LogInputForm(props) {
               id="4"
               name="sleep_quality"
               value={4}
-              checked={sleep_quality === 4}
+              // checked={sleep_quality === 4}
               onChange={handleChange}
             />
             <label htmlFor="sleep_quality">4</label>
@@ -191,7 +190,7 @@ function LogInputForm(props) {
               id="5"
               name="sleep_quality"
               value={5}
-              checked={sleep_quality === 5}
+              // checked={sleep_quality === 5}
               onChange={handleChange}
             />
             <label htmlFor="sleep_quality">5</label>
@@ -253,7 +252,9 @@ function LogInputForm(props) {
       </div>
       <section className="button-section">
         <button type="submit">Submit</button>
-        <button type="reset">Reset</button>
+        <button type="reset" onClick={handleReset}>
+          Reset
+        </button>
       </section>
     </form>
   );

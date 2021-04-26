@@ -14,7 +14,6 @@ function Signup() {
       ...userData,
       [name]: value,
     });
-    console.log(userData);
   };
 
   const handleSignup = (e) => {
@@ -33,7 +32,6 @@ function Signup() {
       }),
     })
       .then((res) => {
-        console.log(res);
         if (!res.ok) {
           return res.json().then((e) => Promise.reject(e));
         }
@@ -41,8 +39,6 @@ function Signup() {
       .then(() => history.push("/login"))
       .catch((error) => setError(error));
   };
-
-  console.log(error);
 
   return (
     <div className="signup">

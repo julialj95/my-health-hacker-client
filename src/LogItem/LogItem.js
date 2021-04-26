@@ -11,7 +11,6 @@ function LogItem(props) {
   const [error, setError] = useState("");
 
   const deleteLog = () => {
-    console.log("deleteLogCalled");
     const { id } = props;
 
     fetch(`${config.API_BASE_URL}/logs/${id}`, {
@@ -34,7 +33,6 @@ function LogItem(props) {
     return (
       <section className="log_record long">
         <h2 className="title_row">{moment(props.date).format("YYYY-MM-DD")}</h2>
-        Test
         <div className="top_section">
           <div className="log_section">
             <p>Stress Level: {props.stress}/5</p>
@@ -72,7 +70,10 @@ function LogItem(props) {
       {displayEditLogForm ? (
         <>
           <h2>Edit Log</h2>
-          <EditLog id={props.id} />
+          <EditLog
+            id={props.id}
+            setDisplayEditLogForm={setDisplayEditLogForm}
+          />
         </>
       ) : null}
       {error ? <h2>{error.message}</h2> : null}

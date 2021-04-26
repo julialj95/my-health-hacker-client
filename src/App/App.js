@@ -36,7 +36,6 @@ function App() {
     username,
     setUsername,
   };
-  console.log("has auth token", TokenService.hasAuthToken());
   return (
     <div className="wrapper">
       <UserContext.Provider value={userInfo}>
@@ -52,7 +51,10 @@ function App() {
             render={(props) => <Login {...props} handleLogin={setLoggedIn} />}
           />
           <Route path="/signup" component={Signup} />
-          <Route path="/submit-log" component={SubmitLog} />
+          <Route
+            path="/submit-log"
+            render={(props) => <SubmitLog {...props} logs={logs} />}
+          />
           <Route
             path="/logs"
             render={(props) => (

@@ -3,7 +3,8 @@ import { useHistory } from "react-router-dom";
 import "./SubmitLog.css";
 import config from "../config";
 import TokenService from "../services/token-service";
-import LogInputForm from "../LogInputForm";
+import LogInputForm from "../LogInputForm/LogInputForm";
+import moment from "moment";
 
 function Logs(props) {
   const [logData, setLogData] = useState({
@@ -22,18 +23,40 @@ function Logs(props) {
   const history = useHistory();
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    let { name, value } = e.target;
+    if (
+      name === "stress" ||
+      name === "mood" ||
+      name === "sleep_quality" ||
+      name === "sleep_hours"
+    ) {
+      value = parseInt(value);
+    }
     setLogData({
       ...logData,
       [name]: value,
     });
+    setValidationError("");
+  };
+
+  const handleReset = () => {
+    setLogData({
+      log_date: "",
+      mood: "",
+      stress: "",
+      sleep_hours: "",
+      sleep_quality: "",
+      exercise_minutes: "",
+      exercise_type: "",
+      water: "",
+      notes: "",
+    });
+    setValidationError("");
+    setFetchError("");
   };
 
   const submitLog = (e) => {
     e.preventDefault();
-    if (logData.log_date === "") {
-      return setValidationError("Please select a date");
-    }
     const {
       log_date,
       mood,
@@ -45,6 +68,18 @@ function Logs(props) {
       water,
       notes,
     } = logData;
+
+    if (log_date === "") {
+      return setValidationError("Please select a date");
+    }
+
+    const dateCheck = props.logs.filter(
+      (logItem) => moment(logItem.log_date).format("YYYY-MM-DD") === log_date
+    );
+
+    if (dateCheck.length > 0) {
+      return setValidationError(`Log already exists for ${log_date}.`);
+    }
 
     fetch(`${config.API_BASE_URL}/logs`, {
       method: "POST",
@@ -75,13 +110,14 @@ function Logs(props) {
       })
       .catch((error) => setFetchError(error));
   };
-  console.log("logData.log_date", logData.log_date);
+
   return (
     <main className="new_log">
       <h2>Submit Log:</h2>
       <LogInputForm
         handleChange={handleChange}
         handleSubmitLog={submitLog}
+        handleReset={handleReset}
         log_date={logData.log_date}
         mood={logData.mood}
         stress={logData.stress}

@@ -5,7 +5,6 @@ import UserContext from "../UserContext";
 
 function Nav(props) {
   const context = useContext(UserContext);
-  console.log("context", context);
   const LoggedIn = () => {
     return (
       <>
@@ -36,7 +35,7 @@ function Nav(props) {
       </>
     );
   };
-  console.log("props.loggedIn", props.loggedIn);
+
   return (
     <nav className="nav">
       <ul className="navbar">

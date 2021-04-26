@@ -27,8 +27,6 @@ function Logs(props) {
         return response.json();
       })
       .then((data) => {
-        console.log("data", data);
-
         setLogs(data);
         setIsFetching(false);
       })
@@ -39,8 +37,6 @@ function Logs(props) {
   }, [setLogs]);
 
   const displayLogs = props.logs.map((logItem) => {
-    // console.log("logItem", logItem);
-
     return (
       <LogItem
         id={logItem.id}

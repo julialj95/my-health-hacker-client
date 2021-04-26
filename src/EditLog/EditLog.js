@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import LogInputForm from "../LogInputForm";
+import LogInputForm from "../LogInputForm/LogInputForm";
 import config from "../config";
 import TokenService from "../services/token-service";
 import moment from "moment";
@@ -8,7 +8,7 @@ import moment from "moment";
 function EditLog(props) {
   const history = useHistory();
   const [formData, setFormData] = useState({
-    id: "",
+    log_id: "",
     log_date: "",
     stress: "",
     mood: "",
@@ -21,9 +21,9 @@ function EditLog(props) {
   });
   const [error, setError] = useState("");
 
+  const { id, setDisplayEditLogForm } = props;
+
   useEffect(() => {
-    const id = props.id;
-    console.log(config.API_BASE_URL + `/logs/${id}`);
     fetch(config.API_BASE_URL + `/logs/${id}`, {
       method: "GET",
       headers: {
@@ -37,9 +37,8 @@ function EditLog(props) {
         return res.json();
       })
       .then((log) => {
-        console.log("log", log);
         setFormData({
-          id: log.id,
+          log_id: log.id,
           log_date: moment(log.log_date).format("YYYY-MM-DD"),
           stress: log.stress,
           mood: log.mood,
@@ -50,9 +49,10 @@ function EditLog(props) {
           water: log.water,
           notes: log.notes,
         });
+        // setDisplayEditLogForm(false);
       })
-      .catch((error) => console.error({ error }));
-  }, [props.id]);
+      .catch((error) => setError(error));
+  }, [id]);
 
   const handleChange = (e) => {
     let { name, value } = e.target;
@@ -64,16 +64,28 @@ function EditLog(props) {
       [name]: value,
     });
   };
-  console.log("formdata", formData);
+
+  const handleReset = () => {
+    setFormData({
+      ...formData,
+      mood: "",
+      stress: "",
+      sleep_hours: "",
+      sleep_quality: "",
+      exercise_minutes: "",
+      exercise_type: "",
+      water: "",
+      notes: "",
+    });
+    setError("");
+  };
 
   const editLog = (e) => {
     e.preventDefault();
-    const id = props.id;
-    const log_date_string = formData.log_date.split("T");
-    const date = log_date_string[0];
-    console.log("edit log date", date);
+    const { id } = props;
+
     const {
-      // log_date,
+      log_date,
       stress,
       mood,
       sleep_hours,
@@ -84,7 +96,7 @@ function EditLog(props) {
       notes,
     } = formData;
     const updatedLog = {
-      log_date: date,
+      log_date: moment(log_date).format("YYYY-MM-DD"),
       stress,
       mood,
       sleep_hours,
@@ -94,7 +106,6 @@ function EditLog(props) {
       water,
       notes,
     };
-    console.log("updatedLog", updatedLog);
     fetch(config.API_BASE_URL + `/logs/${id}`, {
       method: "PATCH",
       body: JSON.stringify(updatedLog),
@@ -107,9 +118,9 @@ function EditLog(props) {
         if (!res.ok) {
           res.json().then((e) => Promise.reject(e));
         }
-        //update logs in App state?
         // res.json();
         history.push("/logs");
+        setDisplayEditLogForm(false);
       })
       .catch((error) => setError(error));
   };
@@ -118,8 +129,9 @@ function EditLog(props) {
       <LogInputForm
         handleChange={handleChange}
         handleSubmitLog={editLog}
-        id={formData.id}
-        key={formData.id}
+        handleReset={handleReset}
+        id={formData.log_id}
+        key={formData.log_id}
         stress={formData.stress}
         mood={formData.mood}
         log_date={formData.log_date}
