@@ -5,7 +5,7 @@ import "./HomePage.css";
 function HomePage() {
   return (
     <main className="about">
-      <h1>MyHealthHacker</h1>
+      <h1 className="title">MyHealthHacker</h1>
       <section>
         <h2>Why Track Your Health Habits?</h2>
         <p>

@@ -4,6 +4,9 @@
   border: solid 1px black;
   padding: 5px;
   margin: 5px;
+  background-color: #6e3667;
+  border: solid 5px #88d317;
+  border-radius: 10px;
 }
 
 .short {

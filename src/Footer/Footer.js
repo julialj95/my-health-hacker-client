@@ -5,7 +5,7 @@ function Footer() {
   return (
     <footer className="footer">
       <p>MyHealthHacker</p>
-      <p>© 2020</p>
+      <p>© 2021</p>
     </footer>
   );
 }

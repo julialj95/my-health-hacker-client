@@ -1,0 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Nunito&family=Source+Sans+Pro&display=swap");
+
+.mental,
+.exercise,
+.sleep,
+.other {
+  border: solid 5px #88d317;
+  border-radius: 10px;
+}

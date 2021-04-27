@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import "./Header.css";
 function Header() {
   return (
     <header className="header_link">
-      <Link to="/">MyHealthHacker</Link>
+      <Link to="/" className="link">
+        MyHealthHacker
+      </Link>
     </header>
   );
 }

@@ -1,3 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Nunito&family=Source+Sans+Pro&display=swap");
+
 .header_link {
   flex-grow: 1;
+  margin-top: 0px;
+}
+.link {
+  flex: 1;
+  color: white;
+  text-decoration: none;
+  font-family: "Nunito";
 }
