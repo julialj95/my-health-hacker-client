@@ -22,7 +22,7 @@ function LogInputForm(props) {
   return (
     <form onSubmit={handleSubmitLog}>
       <section>
-        <label htmlFor="date">Current Date</label>
+        <label htmlFor="date">Log Date</label>
         <input
           type="date"
           id="log_date"
@@ -34,7 +34,7 @@ function LogInputForm(props) {
       </section>
       <br />
 
-      <div className="log_section">
+      <div>
         <section className="mental">
           <h2>Psychological</h2>
           <div className="mood_rating">
@@ -386,7 +386,7 @@ function LogInputForm(props) {
       </div>
       <br />
       <br />
-      <div className="log_section">
+      <div>
         <section className="other">
           <label htmlFor="notes">Additional notes</label>
           <br />
