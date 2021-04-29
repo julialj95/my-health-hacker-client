@@ -74,6 +74,7 @@ function LogItem(props) {
                 min="0"
                 max="5"
                 step="1"
+                disabled={true}
                 value={props.stress}
               />
             </label>

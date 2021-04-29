@@ -40,7 +40,7 @@ function LogInputForm(props) {
           <div className="mood_rating">
             <h3>Mood Rating</h3>
             <h3>Rate your mood out of 5</h3>
-            {props.parent === "submitLog" ? (
+            {/* {props.parent === "submitLog" ? (
               <input
                 type="radio"
                 id="1"
@@ -48,19 +48,18 @@ function LogInputForm(props) {
                 value={1}
                 onChange={handleChange}
               />
-            ) : (
-              <input
-                type="radio"
-                id="1"
-                name="mood"
-                value={1}
-                checked={mood === 1}
-                onChange={handleChange}
-              />
-            )}
-
+            ) : ( */}
+            <input
+              type="radio"
+              id="1"
+              name="mood"
+              value={1}
+              checked={mood === 1}
+              onChange={handleChange}
+            />
+            {/* )} */}
             <label htmlFor="mood">1</label>
-            {props.parent === "submitLog" ? (
+            {/* {props.parent === "submitLog" ? (
               <input
                 type="radio"
                 id="2"
@@ -68,18 +67,18 @@ function LogInputForm(props) {
                 value={2}
                 onChange={handleChange}
               />
-            ) : (
-              <input
-                type="radio"
-                id="2"
-                name="mood"
-                value={2}
-                checked={mood === 2}
-                onChange={handleChange}
-              />
-            )}
+            ) : ( */}
+            <input
+              type="radio"
+              id="2"
+              name="mood"
+              value={2}
+              checked={mood === 2}
+              onChange={handleChange}
+            />
+            {/* // )} */}
             <label htmlFor="mood">2</label>
-            {props.parent === "submitLog" ? (
+            {/* {props.parent === "submitLog" ? (
               <input
                 type="radio"
                 id="3"
@@ -87,18 +86,18 @@ function LogInputForm(props) {
                 value={3}
                 onChange={handleChange}
               />
-            ) : (
-              <input
-                type="radio"
-                id="3"
-                name="mood"
-                value={3}
-                checked={mood === 3}
-                onChange={handleChange}
-              />
-            )}
+            ) : ( */}
+            <input
+              type="radio"
+              id="3"
+              name="mood"
+              value={3}
+              checked={mood === 3}
+              onChange={handleChange}
+            />
+            {/* )} */}
             <label htmlFor="mood">3</label>
-            {props.parent === "submitLog" ? (
+            {/* {props.parent === "submitLog" ? (
               <input
                 type="radio"
                 id="4"
@@ -106,18 +105,18 @@ function LogInputForm(props) {
                 value={4}
                 onChange={handleChange}
               />
-            ) : (
-              <input
-                type="radio"
-                id="4"
-                name="mood"
-                value={4}
-                checked={mood === 4}
-                onChange={handleChange}
-              />
-            )}
+            ) : ( */}
+            <input
+              type="radio"
+              id="4"
+              name="mood"
+              value={4}
+              checked={mood === 4}
+              onChange={handleChange}
+            />
+            {/* )} */}
             <label htmlFor="mood">4</label>
-            {props.parent === "submitLog" ? (
+            {/* {props.parent === "submitLog" ? (
               <input
                 type="radio"
                 id="5"
@@ -125,16 +124,16 @@ function LogInputForm(props) {
                 value={5}
                 onChange={handleChange}
               />
-            ) : (
-              <input
-                type="radio"
-                id="5"
-                name="mood"
-                value={5}
-                checked={mood === 5}
-                onChange={handleChange}
-              />
-            )}
+            ) : ( */}
+            <input
+              type="radio"
+              id="5"
+              name="mood"
+              value={5}
+              checked={mood === 5}
+              onChange={handleChange}
+            />
+            {/* )} */}
             <label htmlFor="mood">5</label>
           </div>
           <div className="stress">
